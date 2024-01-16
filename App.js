@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function App() {
   const [enteredTaskText, setEnteredTaskText] = useState("");
@@ -13,7 +21,10 @@ export default function App() {
   function addTaskHandler() {
     // console.log(enteredTaskText);
 
-    setListTasks((currentTaks) => [...currentTaks, enteredTaskText]);
+    setListTasks((currentTaks) => [
+      ...currentTaks,
+      { text: enteredTaskText, key: listTasks.length.toString() },
+    ]);
   }
 
   return (
@@ -28,9 +39,26 @@ export default function App() {
       </View>
 
       <View style={styles.taskContainer}>
-        {listTasks.map((task) => (
-          <Text key={task}>{task}</Text>
-        ))}
+        {/* <ScrollView>
+          {listTasks.map((task) => (
+            <View style={styles.taskItem}>
+              <Text style={styles.taskText} key={task}>
+                {task}
+              </Text>
+            </View>
+          ))}
+        </ScrollView> */}
+
+        <FlatList
+          data={listTasks}
+          renderItem={(itemData) => {
+            return (
+              <View style={styles.taskItem}>
+                <Text style={styles.taskText}>{itemData.item.text}</Text>
+              </View>
+            );
+          }}
+        />
       </View>
     </View>
   );
@@ -61,5 +89,14 @@ const styles = StyleSheet.create({
   },
   taskContainer: {
     flex: 4,
+  },
+  taskItem: {
+    margin: 5,
+    padding: 8,
+    backgroundColor: "rgb(65,109,109)",
+    borderRadius: 6,
+  },
+  taskText: {
+    color: "#fff",
   },
 });
