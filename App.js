@@ -1,52 +1,30 @@
 import { useState } from "react";
-import {
-  Button,
-  FlatList,
-  StyleSheet,
-  TextInput,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native";
+import { FlatList, StyleSheet, View, TouchableOpacity } from "react-native";
 
 import TaskItem from "./components/TaskItem";
+import TaskInput from "./components/TaskInput";
 
 export default function App() {
-  const [enteredTaskText, setEnteredTaskText] = useState("");
-
   const [listTasks, setListTasks] = useState([]);
 
-  function taskInputHandler(enteredText) {
-    setEnteredTaskText(enteredText);
-  }
-
-  function addTaskHandler() {
+  function addTaskHandler(enteredTaskText) {
     // console.log(enteredTaskText);
 
     setListTasks((currentTaks) => [
       ...currentTaks,
-      { text: enteredTaskText, key: listTasks.length.toString() },
+      { text: enteredTaskText, id: listTasks.length.toString() },
     ]);
+  }
+
+  function deleteTaskHandler(id) {
+    setListTasks((currentTaks) => {
+      return currentTaks.filter((task) => task.id !== id);
+    });
   }
 
   return (
     <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="INSERT YOUR TASK"
-          onChangeText={taskInputHandler}
-        />
-        <Button color="rgb(65,109,109)" title="Add" onPress={addTaskHandler} />
-        {/* <TouchableOpacity
-          style={styles.loginScreenButton}
-          onPress={addTaskHandler}
-          underlayColor="#fff"
-        >
-          <Text style={styles.loginText}>Login</Text>
-        </TouchableOpacity> */}
-      </View>
-
+      <TaskInput onAddTask={addTaskHandler} />
       <View style={styles.taskContainer}>
         {/* <ScrollView>
           {listTasks.map((task) => (
@@ -61,7 +39,13 @@ export default function App() {
         <FlatList
           data={listTasks}
           renderItem={(itemData) => {
-            return <TaskItem text={itemData.item.text} />;
+            return (
+              <TaskItem
+                text={itemData.item.text}
+                id={itemData.item.id}
+                onDeleteTask={deleteTaskHandler}
+              />
+            );
           }}
         />
       </View>
@@ -76,22 +60,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
 
-  textInput: {
-    padding: 15,
-    borderWidth: 1,
-    borderColor: "#cccccc",
-    width: "70%",
-    marginRight: 8,
-  },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
-  },
   taskContainer: {
     flex: 4,
   },
