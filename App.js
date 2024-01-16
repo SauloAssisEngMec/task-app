@@ -2,12 +2,14 @@ import { useState } from "react";
 import {
   Button,
   FlatList,
-  ScrollView,
   StyleSheet,
-  Text,
   TextInput,
+  Text,
   View,
+  TouchableOpacity,
 } from "react-native";
+
+import TaskItem from "./components/TaskItem";
 
 export default function App() {
   const [enteredTaskText, setEnteredTaskText] = useState("");
@@ -35,7 +37,14 @@ export default function App() {
           placeholder="INSERT YOUR TASK"
           onChangeText={taskInputHandler}
         />
-        <Button color="#841584" title="Add" onPress={addTaskHandler} />
+        <Button color="rgb(65,109,109)" title="Add" onPress={addTaskHandler} />
+        {/* <TouchableOpacity
+          style={styles.loginScreenButton}
+          onPress={addTaskHandler}
+          underlayColor="#fff"
+        >
+          <Text style={styles.loginText}>Login</Text>
+        </TouchableOpacity> */}
       </View>
 
       <View style={styles.taskContainer}>
@@ -52,11 +61,7 @@ export default function App() {
         <FlatList
           data={listTasks}
           renderItem={(itemData) => {
-            return (
-              <View style={styles.taskItem}>
-                <Text style={styles.taskText}>{itemData.item.text}</Text>
-              </View>
-            );
+            return <TaskItem text={itemData.item.text} />;
           }}
         />
       </View>
@@ -90,13 +95,21 @@ const styles = StyleSheet.create({
   taskContainer: {
     flex: 4,
   },
-  taskItem: {
-    margin: 5,
-    padding: 8,
+  loginScreenButton: {
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     backgroundColor: "rgb(65,109,109)",
-    borderRadius: 6,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#fff",
   },
-  taskText: {
+  loginText: {
     color: "#fff",
+    textAlign: "center",
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 });
