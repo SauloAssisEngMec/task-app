@@ -1,11 +1,22 @@
 import { useState } from "react";
-import { FlatList, StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 
 import TaskItem from "./components/TaskItem";
 import TaskInput from "./components/TaskInput";
 
 export default function App() {
+  const [modalVisible, setModalVisible] = useState(false);
   const [listTasks, setListTasks] = useState([]);
+
+  function startAddTaskHandler() {
+    setModalVisible(true);
+  }
 
   function addTaskHandler(enteredTaskText) {
     // console.log(enteredTaskText);
@@ -24,7 +35,12 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
-      <TaskInput onAddTask={addTaskHandler} />
+      <Button
+        title="Add New Task"
+        color="rgb(65,109,109)"
+        onPress={startAddTaskHandler}
+      />
+      <TaskInput visible={modalVisible} onAddTask={addTaskHandler} />
       <View style={styles.taskContainer}>
         {/* <ScrollView>
           {listTasks.map((task) => (
