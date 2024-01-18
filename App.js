@@ -9,6 +9,7 @@ import {
 
 import TaskItem from "./components/TaskItem";
 import TaskInput from "./components/TaskInput";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -39,19 +40,21 @@ export default function App() {
   }
 
   return (
-    <View style={styles.appContainer}>
-      <Button
-        title="Add New Task"
-        color="rgb(149, 148, 149)"
-        onPress={startAddTaskHandler}
-      />
-      <TaskInput
-        visible={modalVisible}
-        onAddTask={addTaskHandler}
-        onCancel={endAddTaskHandler}
-      />
-      <View style={styles.taskContainer}>
-        {/* <ScrollView>
+    <>
+      <StatusBar style="dark" />
+      <View style={styles.appContainer}>
+        <Button
+          title="Add New Task"
+          color="rgb(149, 148, 149)"
+          onPress={startAddTaskHandler}
+        />
+        <TaskInput
+          visible={modalVisible}
+          onAddTask={addTaskHandler}
+          onCancel={endAddTaskHandler}
+        />
+        <View style={styles.taskContainer}>
+          {/* <ScrollView>
           {listTasks.map((task) => (
             <View style={styles.taskItem}>
               <Text style={styles.taskText} key={task}>
@@ -61,20 +64,21 @@ export default function App() {
           ))}
         </ScrollView> */}
 
-        <FlatList
-          data={listTasks}
-          renderItem={(itemData) => {
-            return (
-              <TaskItem
-                text={itemData.item.text}
-                id={itemData.item.id}
-                onDeleteTask={deleteTaskHandler}
-              />
-            );
-          }}
-        />
+          <FlatList
+            data={listTasks}
+            renderItem={(itemData) => {
+              return (
+                <TaskItem
+                  text={itemData.item.text}
+                  id={itemData.item.id}
+                  onDeleteTask={deleteTaskHandler}
+                />
+              );
+            }}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
