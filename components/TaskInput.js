@@ -22,14 +22,18 @@ function TaskInput(props) {
           onChangeText={taskInputHandler}
           value={enteredTaskText}
         />
-        <Button color="rgb(65,109,109)" title="Add" onPress={AddTaskHandler} />
-        {/* <TouchableOpacity
-          style={styles.loginScreenButton}
-          onPress={addTaskHandler}
-          underlayColor="#fff"
-        >
-          <Text style={styles.loginText}>Login</Text>
-        </TouchableOpacity> */}
+        <View style={styles.buttonContainer}>
+          <View style={styles.singleButton}>
+            <Button
+              color="rgb(65,109,109)"
+              title="Add"
+              onPress={AddTaskHandler}
+            />
+          </View>
+          <View style={styles.singleButton}>
+            <Button color="rgb(65,109,109)" title="cancel" />
+          </View>
+        </View>
       </View>
     </Modal>
   );
@@ -38,20 +42,29 @@ function TaskInput(props) {
 export default TaskInput;
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+
+    marginBottomBottom: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: "#cccccc",
+    padding: 20,
+  },
   textInput: {
     padding: 15,
     borderWidth: 1,
     borderColor: "#cccccc",
-    width: "70%",
+    width: "100%",
     marginRight: 8,
   },
-  inputContainer: {
-    flex: 1,
+  buttonContainer: {
+    marginTop: 13,
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+  },
+  singleButton: {
+    marginHorizontal: 5,
+    width: "35%",
   },
 });
