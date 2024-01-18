@@ -42,7 +42,7 @@ export default function App() {
     <View style={styles.appContainer}>
       <Button
         title="Add New Task"
-        color="rgb(65,109,109)"
+        color="rgb(149, 148, 149)"
         onPress={startAddTaskHandler}
       />
       <TaskInput

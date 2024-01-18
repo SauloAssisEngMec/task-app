@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   taskItem: {
     margin: 5,
     padding: 8,
-    backgroundColor: "rgb(65,109,109)",
+    backgroundColor: "rgb(149, 148, 149)",
     borderRadius: 6,
   },
   pressedItem: {
