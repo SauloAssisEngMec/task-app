@@ -31,7 +31,7 @@ function TaskInput(props) {
             />
           </View>
           <View style={styles.singleButton}>
-            <Button color="rgb(65,109,109)" title="cancel" />
+            <Button color="red" title="cancel" onPress={props.onCancel} />
           </View>
         </View>
       </View>

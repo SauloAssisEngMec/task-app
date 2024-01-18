@@ -18,6 +18,10 @@ export default function App() {
     setModalVisible(true);
   }
 
+  function endAddTaskHandler() {
+    setModalVisible(false);
+  }
+
   function addTaskHandler(enteredTaskText) {
     // console.log(enteredTaskText);
 
@@ -25,6 +29,7 @@ export default function App() {
       ...currentTaks,
       { text: enteredTaskText, id: listTasks.length.toString() },
     ]);
+    endAddTaskHandler();
   }
 
   function deleteTaskHandler(id) {
@@ -40,7 +45,11 @@ export default function App() {
         color="rgb(65,109,109)"
         onPress={startAddTaskHandler}
       />
-      <TaskInput visible={modalVisible} onAddTask={addTaskHandler} />
+      <TaskInput
+        visible={modalVisible}
+        onAddTask={addTaskHandler}
+        onCancel={endAddTaskHandler}
+      />
       <View style={styles.taskContainer}>
         {/* <ScrollView>
           {listTasks.map((task) => (
